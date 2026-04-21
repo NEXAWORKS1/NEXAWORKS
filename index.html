@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NexaWorks — Careers & Jobs</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink: #0f0e0d; --cream: #faf8f3; --gold: #c8973a;
+    --gold-light: #f0d99a; --rust: #b84c2b; --slate: #3a3d4a;
+    --muted: #8b8880; --border: #e8e4db;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+
+  /* NAV */
+  nav { position: sticky; top: 0; z-index: 100; background: var(--ink); display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 64px; border-bottom: 2px solid var(--gold); }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--cream); }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: #ccc; text-decoration: none; font-size: .9rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-admin-btn { background: var(--gold); color: var(--ink); border: none; padding: .45rem 1.2rem; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .85rem; cursor: pointer; letter-spacing: .05em; text-transform: uppercase; transition: background .2s; }
+  .nav-admin-btn:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero { min-height: 88vh; background: var(--ink); display: grid; place-items: center; text-align: center; position: relative; overflow: hidden; padding: 4rem 2rem; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, #1e1a14 0%, var(--ink) 100%); }
+  .hero-grid { position: absolute; inset: 0; opacity: .05; background-image: linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px); background-size: 60px 60px; }
+  .hero-content { position: relative; z-index: 2; max-width: 760px; }
+  .hero-eyebrow { color: var(--gold); letter-spacing: .18em; text-transform: uppercase; font-size: .8rem; font-weight: 600; margin-bottom: 1.2rem; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); color: var(--cream); line-height: 1.05; margin-bottom: 1.5rem; }
+  .hero-title em { color: var(--gold); font-style: normal; }
+  .hero-sub { color: #aaa8a0; font-size: 1.1rem; line-height: 1.7; max-width: 520px; margin: 0 auto 2.5rem; }
+  .btn-primary { display: inline-block; background: var(--gold); color: var(--ink); padding: .9rem 2.4rem; font-weight: 700; font-size: 1rem; text-decoration: none; letter-spacing: .04em; transition: transform .2s, background .2s; }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline { display: inline-block; border: 2px solid var(--gold); color: var(--gold); padding: .85rem 2.2rem; font-weight: 600; font-size: 1rem; text-decoration: none; margin-left: 1rem; letter-spacing: .04em; transition: all .2s; }
+  .btn-outline:hover { background: var(--gold); color: var(--ink); }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label { color: var(--gold); text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; font-weight: 600; margin-bottom: .6rem; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.15; margin-bottom: 1rem; }
+  .section-sub { color: var(--muted); max-width: 540px; line-height: 1.7; margin-bottom: 3rem; }
+
+  /* ABOUT */
+  #about { background: var(--cream); }
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; max-width: 700px; }
+  .about-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+  .stat-card { background: var(--ink); color: var(--cream); padding: 1.6rem; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: var(--gold); }
+  .stat-label { font-size: .85rem; color: #aaa; margin-top: .3rem; }
+  .about-img { background: linear-gradient(135deg, var(--slate) 0%, var(--ink) 100%); min-height: 420px; display: grid; place-items: center; font-size: 5rem; color: var(--gold); opacity: .7; position: relative; overflow: hidden; }
+  .about-img::before { content; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(200,151,58,.05) 20px, rgba(200,151,58,.05) 21px); }
+
+  /* JOBS */
+  #jobs { background: #f5f2ec; }
+  .jobs-filter { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .filter-btn { padding: .45rem 1.2rem; border: 1.5px solid var(--border); background: white; font-size: .85rem; font-weight: 500; cursor: pointer; transition: all .2s; }
+  .filter-btn.has-logo { display: inline-flex; align-items: center; gap: .55rem; padding: .35rem 1.1rem .35rem .5rem; }
+  .filter-logo { width: 28px; height: 28px; border-radius: 4px; object-fit: cover; flex-shrink: 0; }
+  .filter-all-icon { font-size: 1.1rem; }
+  .filter-btn.active, .filter-btn:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .jobs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+  .job-card { background: white; border: 1.5px solid var(--border); padding: 1.8rem; transition: transform .25s, box-shadow .25s, border-color .25s; position: relative; overflow: hidden; }
+  .job-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0; background: var(--gold); transition: height .3s; }
+  .job-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.1); border-color: var(--gold); }
+  .job-card:hover::before { height: 100%; }
+  .job-dept { font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--gold); font-weight: 700; margin-bottom: .6rem; }
+  .job-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: .8rem; }
+  .job-meta { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .job-tag { font-size: .78rem; padding: .28rem .75rem; background: #f5f2ec; color: var(--slate); font-weight: 500; }
+  .job-tag.type { background: #fdf3e0; color: #8a5a00; }
+  .job-tag.wfh { background: #e8f5e9; color: #2e7d32; }
+  .job-desc { font-size: .88rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.4rem; }
+  .apply-btn { display: inline-block; background: var(--ink); color: var(--cream); padding: .55rem 1.4rem; font-size: .85rem; font-weight: 600; border: none; cursor: pointer; letter-spacing: .04em; text-transform: uppercase; transition: background .2s; }
+  .apply-btn:hover { background: var(--gold); color: var(--ink); }
+  .jd-btn { display: inline-block; background: var(--gold); color: var(--ink); padding: .55rem 1.4rem; font-size: .85rem; font-weight: 700; border: none; cursor: pointer; letter-spacing: .04em; text-transform: uppercase; transition: background .2s; }
+  .jd-btn:hover { background: var(--gold-light); }
+
+  /* CONTACT */
+  #contact { background: var(--ink); color: var(--cream); }
+  #contact .section-title { color: var(--cream); }
+  #contact .section-sub { color: #8a8880; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .address-card { background: rgba(255,255,255,.05); border: 1px solid rgba(200,151,58,.3); padding: 2.5rem; }
+  .address-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); margin-bottom: 1.4rem; }
+  .address-line { display: flex; gap: .75rem; align-items: flex-start; margin-bottom: 1rem; }
+  .addr-icon { font-size: 1.2rem; margin-top: .1rem; }
+  .addr-text { font-size: .95rem; line-height: 1.6; color: #ccc; }
+  .addr-text strong { color: var(--cream); display: block; margin-bottom: .2rem; }
+  .contact-form input, .contact-form textarea { width: 100%; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15); padding: .9rem 1rem; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: .95rem; outline: none; transition: border-color .2s; margin-bottom: 1rem; }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: #666; }
+  .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold); }
+  .contact-form textarea { min-height: 120px; resize: vertical; }
+  .contact-form button { background: var(--gold); color: var(--ink); border: none; padding: .85rem 2rem; font-weight: 700; font-size: .95rem; cursor: pointer; width: 100%; transition: background .2s; }
+  .contact-form button:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer { background: #0a0908; border-top: 1px solid #222; padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; color: #555; font-size: .85rem; }
+  .footer-logo { font-family: 'Playfair Display', serif; color: var(--cream); font-size: 1.2rem; }
+  .footer-logo span { color: var(--gold); }
+
+  /* APPLY MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(10,9,8,.85); backdrop-filter: blur(4px); overflow-y: auto; padding: 2rem 1rem; }
+  .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .modal { background: var(--cream); max-width: 580px; width: 100%; padding: 2.5rem; position: relative; animation: modalIn .3s ease; }
+  @keyframes modalIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  .modal-close { position: absolute; top: 1rem; right: 1.2rem; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--muted); line-height: 1; }
+  .modal-close:hover { color: var(--ink); }
+  .modal-label { color: var(--gold); font-size: .7rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 700; margin-bottom: .4rem; }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; margin-bottom: .5rem; }
+  .modal-meta { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .modal form input, .modal form textarea, .modal form select { width: 100%; padding: .8rem 1rem; border: 1.5px solid var(--border); font-family: 'DM Sans', sans-serif; font-size: .9rem; background: white; outline: none; transition: border-color .2s; margin-bottom: 1rem; }
+  .modal form input:focus, .modal form textarea:focus, .modal form select:focus { border-color: var(--gold); }
+  .modal form textarea { min-height: 100px; resize: vertical; }
+  .modal form label { font-size: .8rem; font-weight: 600; color: var(--slate); letter-spacing: .04em; display: block; margin-bottom: .3rem; }
+  .modal form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .modal form button { width: 100%; background: var(--ink); color: var(--cream); border: none; padding: .9rem; font-weight: 700; font-size: 1rem; cursor: pointer; margin-top: .5rem; transition: background .2s; }
+  .modal form button:hover { background: var(--gold); color: var(--ink); }
+  .modal-success { text-align: center; padding: 2rem 0; }
+  .modal-success .check { font-size: 3rem; margin-bottom: 1rem; }
+  .modal-success h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: .6rem; }
+  .modal-success p { color: var(--muted); }
+
+  /* JD MODAL */
+  .jd-overlay { display: none; position: fixed; inset: 0; z-index: 250; background: rgba(10,9,8,.92); backdrop-filter: blur(6px); overflow-y: auto; padding: 2rem 1rem; }
+  .jd-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+  .jd-modal { background: var(--cream); max-width: 760px; width: 100%; position: relative; animation: modalIn .3s ease; margin: auto; }
+  .jd-header { background: var(--ink); padding: 2.5rem 2.5rem 2rem; border-bottom: 3px solid var(--gold); }
+  .jd-dept-tag { color: var(--gold); font-size: .72rem; text-transform: uppercase; letter-spacing: .15em; font-weight: 700; margin-bottom: .5rem; }
+  .jd-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--cream); margin-bottom: 1rem; line-height: 1.15; }
+  .jd-tags { display: flex; gap: .75rem; flex-wrap: wrap; }
+  .jd-htag { font-size: .78rem; padding: .3rem .9rem; background: rgba(255,255,255,.08); color: #ccc; font-weight: 500; }
+  .jd-htag.gold { background: rgba(200,151,58,.2); color: var(--gold); }
+  .jd-body { padding: 2.5rem; }
+  .jd-sec { margin-bottom: 2.2rem; }
+  .jd-sec-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--ink); margin-bottom: 1rem; padding-bottom: .6rem; border-bottom: 2px solid var(--gold); }
+  .jd-list { list-style: none; padding: 0; }
+  .jd-list li { padding: .55rem 0 .55rem 1.4rem; font-size: .92rem; color: #3a3a3a; line-height: 1.6; border-bottom: 1px solid #f0ece3; position: relative; }
+  .jd-list li:last-child { border-bottom: none; }
+  .jd-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gold); font-size: .75rem; top: .65rem; }
+  .jd-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .jd-grid-item { background: #f5f2ec; padding: .75rem 1rem; font-size: .85rem; color: #3a3a3a; border-left: 3px solid var(--gold); line-height: 1.5; }
+  .jd-grid-item strong { display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .2rem; }
+  .jd-train-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: .6rem; margin-top: .5rem; }
+  .jd-step { background: var(--ink); color: var(--cream); padding: 1rem .75rem; text-align: center; }
+  .jd-step-num { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); }
+  .jd-step-days { font-size: .78rem; color: var(--gold-light); font-weight: 600; margin-top: .2rem; }
+  .jd-step-label { font-size: .7rem; color: #aaa; margin-top: .3rem; line-height: 1.4; }
+  .jd-footer { background: #f5f2ec; padding: 1.8rem 2.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .jd-close { position: absolute; top: 1.2rem; right: 1.5rem; font-size: 1.8rem; background: none; border: none; cursor: pointer; color: #aaa; line-height: 1; z-index: 2; }
+  .jd-close:hover { color: var(--cream); }
+  .jd-apply-btn { background: var(--gold); color: var(--ink); border: none; padding: .9rem 2.5rem; font-weight: 700; font-size: 1rem; cursor: pointer; letter-spacing: .05em; text-transform: uppercase; transition: background .2s; }
+  .jd-apply-btn:hover { background: var(--gold-light); }
+  .notice-box { background: #fff8e6; border: 1px solid #f0d99a; border-left: 4px solid var(--gold); padding: 1rem 1.2rem; font-size: .88rem; color: #6b4f00; margin-bottom: 1.5rem; line-height: 1.6; }
+  .sub-sec-title { font-size: .95rem; font-weight: 600; color: var(--slate); margin: 1.2rem 0 .8rem; text-transform: uppercase; letter-spacing: .07em; }
+
+  /* ADMIN LOGIN */
+  #adminLogin { display: none; position: fixed; inset: 0; z-index: 400; background: #0a0908; align-items: center; justify-content: center; }
+  #adminLogin.open { display: flex; }
+  .login-box { background: #15130f; border: 1px solid #2a2620; border-top: 3px solid var(--gold); padding: 3rem 2.5rem; width: 100%; max-width: 420px; animation: modalIn .35s ease; }
+  .login-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--cream); margin-bottom: .3rem; }
+  .login-logo span { color: var(--gold); }
+  .login-sub { color: #555; font-size: .85rem; margin-bottom: 2rem; }
+  .login-label { font-size: .72rem; font-weight: 600; color: #666; letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .4rem; }
+  .login-input { width: 100%; background: #0f0e0d; border: 1px solid #2a2620; padding: .85rem 1rem; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: .95rem; outline: none; transition: border-color .2s; margin-bottom: 1.2rem; }
+  .login-input:focus { border-color: var(--gold); }
+  .login-btn { width: 100%; background: var(--gold); color: var(--ink); border: none; padding: .9rem; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background .2s; }
+  .login-btn:hover { background: var(--gold-light); }
+  .login-error { background: #3a1a1a; border-left: 3px solid #e05050; color: #e08080; padding: .7rem 1rem; font-size: .85rem; margin-bottom: 1rem; display: none; }
+  .login-error.show { display: block; }
+  .login-hint { text-align: center; margin-top: 1.2rem; color: #444; font-size: .8rem; line-height: 1.8; }
+
+  /* ADMIN PANEL */
+  #adminPanel { display: none; position: fixed; inset: 0; z-index: 300; background: #0f0e0d; overflow-y: auto; }
+  #adminPanel.open { display: block; }
+  .admin-nav { background: #1a1816; border-bottom: 2px solid var(--gold); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; height: 60px; position: sticky; top: 0; z-index: 10; }
+  .admin-logo { font-family: 'Playfair Display', serif; color: var(--cream); font-size: 1.2rem; }
+  .admin-logo span { color: var(--gold); font-size: .7rem; vertical-align: super; font-family: 'DM Sans', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+  .admin-close { background: var(--rust); color: white; border: none; padding: .4rem 1.2rem; font-weight: 700; font-size: .85rem; cursor: pointer; }
+  .admin-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 60px); }
+  .admin-sidebar { background: #15130f; border-right: 1px solid #2a2620; padding: 1.5rem 0; }
+  .admin-sidebar-title { color: #555; font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; padding: .5rem 1.5rem; margin-bottom: .5rem; }
+  .admin-nav-item { display: block; padding: .75rem 1.5rem; color: #888; font-size: .9rem; cursor: pointer; border-left: 3px solid transparent; transition: all .2s; text-decoration: none; }
+  .admin-nav-item.active, .admin-nav-item:hover { color: var(--cream); background: rgba(255,255,255,.04); border-left-color: var(--gold); }
+  .admin-main { padding: 2.5rem; color: var(--cream); }
+  .admin-page { display: none; }
+  .admin-page.active { display: block; }
+  .admin-page-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--cream); margin-bottom: .4rem; }
+  .admin-page-sub { color: #666; font-size: .9rem; margin-bottom: 2rem; }
+  .admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 2.5rem; }
+  .admin-stat { background: #1a1816; border: 1px solid #2a2620; padding: 1.4rem; }
+  .admin-stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); }
+  .admin-stat-label { color: #666; font-size: .8rem; margin-top: .3rem; }
+  .admin-stat-trend { font-size: .75rem; color: #4caf50; margin-top: .4rem; }
+  .admin-card { background: #1a1816; border: 1px solid #2a2620; padding: 1.5rem; margin-bottom: 1.5rem; }
+  .admin-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 1rem; border-bottom: 1px solid #2a2620; padding-bottom: .75rem; }
+  .admin-table { width: 100%; border-collapse: collapse; }
+  .admin-table th { text-align: left; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: #555; padding: .6rem .8rem; border-bottom: 1px solid #2a2620; }
+  .admin-table td { padding: .85rem .8rem; border-bottom: 1px solid #1e1c19; font-size: .88rem; color: #bbb; }
+  .admin-table tr:hover td { background: rgba(255,255,255,.03); }
+  .badge { display: inline-block; padding: .22rem .7rem; font-size: .72rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+  .badge-new { background: #1a3a2e; color: #4caf90; }
+  .badge-review { background: #3a2e10; color: #e0a830; }
+  .badge-rejected { background: #3a1a1a; color: #e05050; }
+  .badge-hired { background: #1a2e3a; color: #50a0e0; }
+  .badge-active { background: #1a3a1a; color: #70c070; }
+  .badge-closed { background: #2a2620; color: #666; }
+  .admin-form input, .admin-form textarea, .admin-form select { width: 100%; background: #0f0e0d; border: 1px solid #2a2620; padding: .75rem 1rem; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: .9rem; outline: none; transition: border-color .2s; margin-bottom: 1rem; }
+  .admin-form input:focus, .admin-form textarea:focus, .admin-form select:focus { border-color: var(--gold); }
+  .admin-form textarea { min-height: 90px; resize: vertical; }
+  .admin-form label { font-size: .75rem; font-weight: 600; color: #777; letter-spacing: .06em; display: block; margin-bottom: .35rem; text-transform: uppercase; }
+  .admin-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .btn-gold { background: var(--gold); color: var(--ink); border: none; padding: .65rem 1.8rem; font-weight: 700; font-size: .85rem; cursor: pointer; transition: background .2s; }
+  .btn-gold:hover { background: var(--gold-light); }
+  .btn-sm { padding: .35rem .9rem; font-size: .78rem; background: #2a2620; color: #bbb; border: none; cursor: pointer; transition: background .2s; }
+  .btn-sm:hover { background: #3a3630; color: var(--cream); }
+  .admin-addr-display { background: #0f0e0d; border: 1px solid #2a2620; padding: 1.5rem; margin-top: 1rem; font-size: .95rem; color: #bbb; line-height: 1.8; }
+  .admin-addr-display strong { color: var(--gold); font-size: 1rem; display: block; margin-bottom: .5rem; }
+  .notif { background: #1a3a2e; border-left: 3px solid #4caf90; padding: .75rem 1rem; color: #8de0b0; font-size: .88rem; margin-top: 1rem; display: none; }
+  .notif.show { display: block; }
+  .admin-user-pill { display: flex; align-items: center; gap: .6rem; background: rgba(255,255,255,.07); padding: .35rem .9rem .35rem .6rem; font-size: .8rem; color: #aaa; }
+  .admin-user-dot { width: 8px; height: 8px; border-radius: 50%; background: #4caf90; flex-shrink: 0; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.2rem; }
+    .nav-links { display: none; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .admin-body { grid-template-columns: 1fr; }
+    .admin-sidebar { display: none; }
+    .admin-stats { grid-template-columns: 1fr 1fr; }
+    .modal form .form-row, .admin-form .form-row { grid-template-columns: 1fr; }
+    .jd-train-steps { grid-template-columns: 1fr 1fr; }
+    .jd-grid { grid-template-columns: 1fr; }
+    .jd-footer { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Nexa<span>Works</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#jobs">Open Roles</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-admin-btn" onclick="openAdmin()">⚙ Admin Panel</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Join Our Team · Visakhapatnam</p>
+    <h1 class="hero-title">Build the <em>Future</em><br>With Us</h1>
+    <p class="hero-sub">We're a fast-growing company hiring the best talent across Chat Process, Sales & Marketing, and IT. Come grow with us.</p>
+    <a href="#jobs" class="btn-primary">View Open Roles</a>
+    <a href="#about" class="btn-outline">Who We Are</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">A Company Built on Ambition & Impact</h2>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:1rem;">NexaWorks is headquartered in the heart of Visakhapatnam, Andhra Pradesh. We specialize in delivering technology solutions, consulting, and digital transformation services to businesses across India and globally.</p>
+        <p style="color:var(--muted);line-height:1.8;">Our team of 200+ professionals is passionate about problem-solving, innovation, and creating lasting value for our clients and communities.</p>
+        <div class="about-stat-grid">
+          <div class="stat-card"><div class="stat-num">200+</div><div class="stat-label">Team Members</div></div>
+          <div class="stat-card"><div class="stat-num">8</div><div class="stat-label">Years Operating</div></div>
+          <div class="stat-card"><div class="stat-num">150+</div><div class="stat-label">Projects Delivered</div></div>
+          <div class="stat-card"><div class="stat-num">40+</div><div class="stat-label">Open Positions</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- JOBS -->
+<section id="jobs">
+  <div class="container">
+    <p class="section-label">Open Positions</p>
+    <h2 class="section-title">We're Hiring Across Teams</h2>
+    <p class="section-sub">Explore roles that match your skills. We value curiosity, ownership, and collaboration above all else.</p>
+    <div style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem;padding:1.5rem 2rem;background:#fff;border:1.5px solid var(--border);">
+      <div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:600;white-space:nowrap;">Our Partners</div>
+      <div style="display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;">
+          <div style="width:64px;height:64px;border-radius:8px;background:linear-gradient(135deg,#00CCBC,#00897B);display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 2px 12px rgba(0,0,0,.1);">🛵</div>
+          <span style="font-size:.72rem;font-weight:600;color:var(--slate);letter-spacing:.04em;text-transform:uppercase;">Deliveroo</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;">
+          <img src="data:image/webp;base64,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" alt="AK Marketing" style="width:64px;height:64px;border-radius:8px;object-fit:cover;box-shadow:0 2px 12px rgba(0,0,0,.1);"/>
+          <span style="font-size:.72rem;font-weight:600;color:var(--slate);letter-spacing:.04em;text-transform:uppercase;">AK Marketing</span>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:.5rem;">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAAAbFBMVEX6NXv////6LXb6Mnn9wdb7YJf7bqD9vNT/+fv7c6P/7vT+yNv6PoH7TYv9r8v8krj+3en8eKf7XJT8jrX+2eb9qMb6QYP8far/7fT/9fn+4Ov8ibL9ss3+zt/7U477ZZr8mr38o8P8g676JnHFsta5AAADVklEQVR4nO2Z6XbiMAxGic1e6EIplA5Lh3n/d5yCLWV3ZGN7zpzz3V+QRJLj5caQ0QgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABio9UNHRgXEBgaV2E1uXP2TaLXJnDnG0gFPcPqPBU3lmu/4nq1vccVY89GqxcTt1d+cfUkk/k9ybNfEvVeWBZegXr9eY968qrWLv98zzKf+BSn2j9sVz59HVStq/7S/97VR8H88qgfOK4diewse5MnUpt52ehPn+UQtoLa6NXrPdOrfJz1uKjwW3y36s1EvDza0QGp1MIEfJsJetgI7zagexz4DRrp7mtll4NUewET0ZHMb3mQ7vZKfZtPU1FgJN1xM3xEVKmtd18e2ouku7IdHtqzuptffmqrvVx70XTHCeWzTVvdHc2lJ7n2YumOWyJf11Z3S7PFUpe5UHsRdeedknVnL9RHmfbi6o6QDR7rjrak+myWw2ygLVF1x0lly6TUHR8RaS9ohzOMSEiku1PlkEh7kXVXtkfQF1Xd8TGB9qLrjhMPzzrWXb1TrfZcv7xi645bNLy+67ojhrWXQHfi1E3dEUPaS6M7wj2ILd3xifPBqb0kuuPk7uXS1h2fcWovke64uEtMHbrjU07tJdJd2S5Hn3Tpjs9d+7WXTHdcoH/2qc2hS3cG7dJeKt1x8f513q07ol97CXU3WKJPd4SeGe017ymt7ojuwezVHV/Qo72kuuMidpw/6kX6dcdXdGovse64eJegBD+kS+0NZosP9011nF2642s6tJdcd1yoPQu1S3clp/a0T607bmF7vbt1R7S1l0F3XGrfKDWkO6KpvTy6I8yg0p8Zg7ojmtqL8qpCSkN7w7rjwJr2MumOix8ronLs7pqQ9k6jW19n0h0Xp/9wb18kuiNIe1eVUXdc3I7zQvGrigHdEZXdXi7dEZVdvUx3hJoWVnsZdcfFrfbe/wh1R7D2Rjl1R1jtnbe2y5UQuxyOOXZ3TdTFFDXTpHi+TJss6tDhi7nbYi5VTkzqr91C8XsJ/TC1F5yhjLM2eVR/lRxIrudKCT1hHiDbc6WE9jvB5HuulOjdcdzDrJPmVdf8HX1r9oP8izYDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA/8Vff2gsFs2MdjEAAAAASUVORK5CYII=" alt="Wolfpack" style="width:64px;height:64px;border-radius:8px;object-fit:cover;box-shadow:0 2px 12px rgba(0,0,0,.1);"/>
+          <span style="font-size:.72rem;font-weight:600;color:var(--slate);letter-spacing:.04em;text-transform:uppercase;">Wolfpack</span>
+        </div>
+      </div>
+    </div>
+    <div class="jobs-filter">
+      <button class="filter-btn active" onclick="filterJobs('all',this)">All Roles</button>
+      <button class="filter-btn" onclick="filterJobs('Chat Process',this)">Chat Process</button>
+      <button class="filter-btn" onclick="filterJobs('Sales & Marketing',this)">Sales &amp; Marketing</button>
+      <button class="filter-btn" onclick="filterJobs('Development & IT',this)">Development &amp; IT</button>
+    </div>
+    <div class="jobs-grid" id="jobsGrid"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Visit Us or Drop a Message</h2>
+    <p class="section-sub">Our team is based in Visakhapatnam and ready to connect with talented individuals and prospective partners.</p>
+    <div class="contact-grid">
+      <div>
+        <div class="address-card">
+          <h3>📍 Our Office</h3>
+          <div class="address-line">
+            <span class="addr-icon">🏢</span>
+            <div class="addr-text">
+              <strong>NexaWorks HQ</strong>
+              2nd Floor, MVR'S Vinayagar Trade Center,<br>
+              VIP Rd CBM Compound, Asilmetta<br>
+              Siripuram, Visakhapatnam,<br>
+              Andhra Pradesh 530003
+            </div>
+          </div>
+          <div class="address-line">
+            <span class="addr-icon">📞</span>
+            <div class="addr-text"><strong>Phone</strong>+91 7890773702</div>
+          </div>
+          <div class="address-line">
+            <span class="addr-icon">✉️</span>
+            <div class="addr-text"><strong>Email</strong>contact@nexaworks.co.in</div>
+          </div>
+          <div class="address-line">
+            <span class="addr-icon">⏰</span>
+            <div class="addr-text"><strong>Hours</strong>Mon–Sat, 9:00 AM – 6:30 PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <label style="color:#888;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.4rem;">Full Name</label>
+        <input type="text" placeholder="Your full name"/>
+        <label style="color:#888;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.4rem;">Email Address</label>
+        <input type="email" placeholder="you@example.com"/>
+        <label style="color:#888;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:.4rem;">Message</label>
+        <textarea placeholder="What would you like to say?"></textarea>
+        <button onclick="contactSent(this)">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Nexa<span>Works</span></div>
+  <div>2nd Floor, MVR'S Vinayagar Trade Center, VIP Rd CBM Compound, Asilmetta, Visakhapatnam – 530003</div>
+  <div>© 2025 NexaWorks</div>
+</footer>
+
+<!-- JD MODAL -->
+<div class="jd-overlay" id="jdOverlay" onclick="if(event.target===this)closeJd()">
+  <div class="jd-modal">
+    <button class="jd-close" onclick="closeJd()">×</button>
+    <div class="jd-header">
+      <div class="jd-dept-tag">💬 Chat Process</div>
+      <h2 class="jd-title">Customer Service Consultant</h2>
+      <div class="jd-tags">
+        
+        
+        <span class="jd-htag gold">🏠 Work From Home</span>
+        <span class="jd-htag gold">🎓 Freshers Welcome</span>
+      </div>
+    </div>
+    <div class="jd-body">
+      <div class="notice-box">⏰ <strong>Working Hours:</strong> Mostly between 11:30 AM – 12:30 AM (including 1-hour break) · 9-hour availability required during training &amp; certification</div>
+
+      <div class="jd-sec">
+        <div class="jd-sec-title">📋 Roles &amp; Responsibilities</div>
+        <ul class="jd-list">
+          <li>Resolving chats raised by customers through the app which requires coordination between pickup and delivery executives and stores</li>
+          <li>Resolve tickets for issues such as: Order status, Cancellation, Delivery instructions &amp; Location-related issues</li>
+          <li>Provide inbound chat support by answering customer queries and making outbound calls to PDPs or stores related to their order</li>
+          <li>Establish relationship and trust with customers, PDPs and stores by ensuring qualitative service</li>
+          <li>Know the products inside and out to answer queries and resolve complaints</li>
+          <li>Process orders, forms, applications and requests</li>
+          <li>Keep records of customer interactions, transactions, comments and complaints</li>
+          <li>Maintain a positive, empathetic and professional attitude toward customers at all times</li>
+          <li>Ensure customer satisfaction and provide professional customer support via chats</li>
+        </ul>
+      </div>
+
+      <div class="jd-sec">
+        <div class="jd-sec-title">✅ Selection Criteria &amp; Eligibility</div>
+        <div class="jd-grid">
+          <div class="jd-grid-item"><strong>Education</strong>Higher Secondary and above</div>
+          <div class="jd-grid-item"><strong>Language</strong>English proficiency (written &amp; verbal) mandatory</div>
+          <div class="jd-grid-item"><strong>Typing Speed</strong>~20 WPM with 90% accuracy</div>
+          <div class="jd-grid-item"><strong>Age</strong>18+ years old</div>
+          <div class="jd-grid-item"><strong>Experience</strong>Fresher or experienced welcome</div>
+          <div class="jd-grid-item"><strong>Skills</strong>Multitasking &amp; prioritization ability</div>
+        </div>
+        <div class="sub-sec-title">💻 System Requirements</div>
+        <ul class="jd-list">
+          <li>Must have a laptop or computer with camera (good working condition)</li>
+          <li>Android mobile phone (preferably latest version)</li>
+          <li>Genuine Windows 10 Home edition or above is mandatory</li>
+          <li>Minimum 4 GB RAM</li>
+          <li>Minimum 200–500 GB hard drive</li>
+          <li>High-speed internet connectivity (preferably Broadband/Wi-Fi)</li>
+          <li>A silent room to work</li>
+          <li>Professional email drafting skills are an added advantage</li>
+        </ul>
+      </div>
+
+      <div class="jd-sec">
+        <div class="jd-sec-title">🎯 Selection Process</div>
+        <ul class="jd-list">
+          <li>2 rounds of telephonic interviews (within 2–3 days)</li>
+          <li>Assessment test: Grammar &amp; Language Proficiency</li>
+          <li>Assessment test: Versant Test</li>
+          <li>Post selection, candidates must submit documents for onboarding</li>
+        </ul>
+      </div>
+
+      <div class="jd-sec">
+        <div class="jd-sec-title">🎓 Training Details</div>
+        <div class="jd-train-steps">
+          <div class="jd-step"><div class="jd-step-num">01</div><div class="jd-step-days">2 Days</div><div class="jd-step-label">Soft Skill Training</div></div>
+          <div class="jd-step"><div class="jd-step-num">02</div><div class="jd-step-days">7–9 Days</div><div class="jd-step-label">Product &amp; Process Training</div></div>
+          <div class="jd-step"><div class="jd-step-num">03</div><div class="jd-step-days">7–9 Days</div><div class="jd-step-label">OJT (On-the-Job Training)</div></div>
+          <div class="jd-step"><div class="jd-step-num">04</div><div class="jd-step-days">5 Days</div><div class="jd-step-label">Certification</div></div>
+          <div class="jd-step" style="border-left:3px solid var(--gold)"><div class="jd-step-num" style="font-size:1.1rem">⏰</div><div class="jd-step-days">9 Hours</div><div class="jd-step-label">Daily during training</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="jd-footer">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ink);margin-bottom:.3rem;">Ready to apply?</div>
+        <div style="font-size:.85rem;color:var(--muted);">Contact: <strong>contact@nexaworks.co.in</strong> · <strong>+91 7890773702</strong></div>
+      </div>
+      <button class="jd-apply-btn" id="jdApplyBtn">Apply Now →</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- IT DEVELOPER JD MODAL -->
+<div class="jd-overlay" id="itJdOverlay" onclick="if(event.target===this)closeItJd()">
+  <div class="jd-modal">
+    <button class="jd-close" onclick="closeItJd()">×</button>
+    <div class="jd-header" style="background:linear-gradient(135deg,#0d1b2a 0%,#1a2e44 100%)">
+      <div class="jd-dept-tag" style="color:#4fc3f7">💻 Development &amp; IT</div>
+      <h2 class="jd-title">IT Developer</h2>
+      <div class="jd-tags">
+        
+        
+        <span class="jd-htag gold">🖥️ Tech Role</span>
+        <span class="jd-htag gold">🎓 Graduate Required</span>
+      </div>
+    </div>
+    <div class="jd-body">
+
+      <div class="jd-sec">
+        <div class="jd-sec-title" style="border-bottom-color:#1565c0">📋 Duties &amp; Responsibilities</div>
+        <ul class="jd-list">
+          <li>Enforcing development standards across all project deliverables</li>
+          <li>Collaborate with software developers, business analysts, software architects and IT professionals to implement Global Trade &amp; Customs solutions</li>
+          <li>Translate business requirements into functional/technical requirements working within the framework of the tools available</li>
+          <li>Interact with Business representatives to ensure their requirements are being met</li>
+          <li>Develop solutions to meet business requirements while meeting time and cost constraints</li>
+          <li>Identify, create, document and implement processes that provide additional efficiencies for the team and IT</li>
+          <li>Participation in creation of SDLC documentation, System Requirement Specifications (SRS), System Design Specifications (SDS), Unit Test Plans, System Test Plans, System Deployment Plans (SDP)</li>
+          <li>Hosted application solution and working with host/managed services company</li>
+          <li>Defining new release schedules and interfacing with host company to transport new code to production</li>
+          <li>Assisting in the development of end user training documentation</li>
+        </ul>
+      </div>
+
+      <div class="jd-sec">
+        <div class="jd-sec-title" style="border-bottom-color:#1565c0">🏅 Qualifications</div>
+
+        <div class="sub-sec-title">📜 Licenses &amp; Certifications</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem">
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">SAP</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">SAPUI5</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">ITIL</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">AEF</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">SFDC</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">UX</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">CPQ</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">SQL</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">.NET</span>
+          <span style="background:#e3f2fd;color:#0d47a1;padding:.3rem .8rem;font-size:.8rem;font-weight:700;letter-spacing:.04em">ESRI</span>
+        </div>
+
+        <div class="sub-sec-title">🎓 Education Requirements</div>
+        <div class="notice-box" style="background:#e8f4f8;border-color:#90caf9;border-left-color:#1565c0;color:#0d3349">
+          Employers prefer candidates with a relevant degree such as a <strong>Bachelor's or Master's Degree</strong> in one of the following fields:
+        </div>
+        <div class="jd-grid">
+          <div class="jd-grid-item" style="border-left-color:#1565c0"><strong>Primary</strong>Computer Science</div>
+          <div class="jd-grid-item" style="border-left-color:#1565c0"><strong>Field</strong>Information Technology</div>
+          <div class="jd-grid-item" style="border-left-color:#1565c0"><strong>Field</strong>Computer Engineering</div>
+          <div class="jd-grid-item" style="border-left-color:#1565c0"><strong>Field</strong>Software Engineering</div>
+          <div class="jd-grid-item" style="border-left-color:#1565c0"><strong>Field</strong>Information Systems</div>
+          <div class="jd-grid-item" style="border-left-color:#1565c0"><strong>Field</strong>Business / Design / Associates</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="jd-footer">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ink);margin-bottom:.3rem;">Ready to build with us?</div>
+        <div style="font-size:.85rem;color:var(--muted);">Contact: <strong>contact@nexaworks.co.in</strong> · <strong>+91 7890773702</strong></div>
+      </div>
+      <button class="jd-apply-btn" id="itJdApplyBtn" style="background:#1565c0">Apply Now →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SALES JD MODAL -->
+<div class="jd-overlay" id="salesJdOverlay" onclick="if(event.target===this)closeSalesJd()">
+  <div class="jd-modal">
+    <button class="jd-close" onclick="closeSalesJd()">×</button>
+    <div class="jd-header">
+      <div class="jd-dept-tag">📈 Sales &amp; Marketing</div>
+      <h2 class="jd-title">Sales Executive</h2>
+      <div class="jd-tags">
+        
+        
+        
+        <span class="jd-htag gold">🚀 Growth Track</span>
+      </div>
+    </div>
+    <div class="jd-body">
+
+      <div class="jd-sec">
+        <div class="jd-sec-title">📋 Job Description</div>
+
+        <div class="sub-sec-title">🎯 Executing Sales Strategy</div>
+        <ul class="jd-list">
+          <li>Assist Zonal Head in translating the overall sales strategy / targets for zone to individual districts and regions</li>
+          <li>Communicate the sales targets in the form of Journey Cycle Plan to team of Sales Officers and oversee execution as per plan</li>
+          <li>Establish, measure timelines and mechanisms to regularly review the performance of team against the set targets and provide guidance and support to the team for identified issues</li>
+          <li>Coordinate with the Technical Services team to ensure highest standards of customer satisfaction</li>
+          <li>Support Zonal Head in performing periodic demand forecasting across districts; participate in sales and operations planning discussions and manage timely demand planning activities</li>
+          <li>Track competitor activities and provide data on competitor performance, price points, etc.</li>
+        </ul>
+
+        <div class="sub-sec-title">⚙️ Sales Operations</div>
+        <ul class="jd-list">
+          <li>Oversee Sales Officers, assign their periodic targets, guide them in activity planning</li>
+          <li>Analyse sales performance data for own team of Sales Officers to ensure course correction wherever required</li>
+          <li>Ensure adherence to defined standard operating procedures to sell products and record sales</li>
+          <li>Ensure compliance of team to internal technology platforms for tracking sales performance, attendance, etc.</li>
+          <li>Collaborate with Technical services team in implementing the designed marketing activities</li>
+          <li>Ensure timely delivery of product in the assigned territory through co-ordination with logistics teams and local distributors</li>
+        </ul>
+
+        <div class="sub-sec-title">🤝 Dealer Network Management</div>
+        <ul class="jd-list">
+          <li>Support expansion of dealer network to maximize market penetration &amp; sales volumes</li>
+          <li>Drive and oversee channel partner activation through drives and campaigns</li>
+          <li>Oversee smooth and effective rollout of trade discounts, promotions and schemes in line with functional objectives</li>
+        </ul>
+
+        <div class="sub-sec-title">👥 People Management</div>
+        <ul class="jd-list">
+          <li>Drive a performance driven culture — set goals, review performance and provide feedback so as to ensure a motivated and committed team</li>
+          <li>Develop employee capability and build functional excellence through various learning and development interventions and mentoring initiatives</li>
+          <li>Foster an environment of learning, excellence and innovation within the team and across teams</li>
+        </ul>
+      </div>
+
+    </div>
+    <div class="jd-footer">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--ink);margin-bottom:.3rem;">Interested in this role?</div>
+        <div style="font-size:.85rem;color:var(--muted);">Contact: <strong>contact@nexaworks.co.in</strong> · <strong>+91 7890773702</strong></div>
+      </div>
+      <button class="jd-apply-btn" id="salesJdApplyBtn">Apply Now →</button>
+    </div>
+  </div>
+</div>
+
+<!-- APPLY MODAL -->
+<div class="modal-overlay" id="applyModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-label" id="modalDept"></div>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <div class="modal-meta" id="modalMeta"></div>
+    <div id="applyForm">
+      <form onsubmit="submitApplication(event)">
+        <div class="form-row">
+          <div><label>First Name</label><input type="text" required placeholder="First name"/></div>
+          <div><label>Last Name</label><input type="text" required placeholder="Last name"/></div>
+        </div>
+        <label>Email Address</label>
+        <input type="email" required placeholder="you@example.com"/>
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+91 00000 00000"/>
+        <label>Current Role / Designation</label>
+        <input type="text"/>
+        <label>Years of Experience</label>
+        <select>
+          <option>Less than 1 year</option>
+          <option>1–3 years</option>
+          <option>3–5 years</option>
+          <option>5–10 years</option>
+          <option>10+ years</option>
+        </select>
+        <label>Cover Letter / Why Us?</label>
+        <textarea placeholder="Tell us why you'd be a great fit…"></textarea>
+        <label>LinkedIn / Portfolio URL</label>
+        <input type="url" placeholder="https://linkedin.com/in/..."/>
+        <button type="submit">Submit Application →</button>
+      </form>
+    </div>
+    <div class="modal-success" id="applySuccess" style="display:none">
+      <div class="check">✅</div>
+      <h3>Application Submitted!</h3>
+      <p>Thank you for applying. Our team will review your application and get back to you within 5–7 business days.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLogin">
+  <div class="login-box">
+    <div class="login-logo">Nexa<span>Works</span></div>
+    <div class="login-sub">Admin Portal — Restricted Access</div>
+    <div class="login-error" id="loginError">Incorrect credentials. Please try again.</div>
+    <label class="login-label">Email or Phone Number</label>
+    <input class="login-input" type="text" id="loginEmail" placeholder="contact@nexaworks.co.in or +91 7890773702"/>
+    <label class="login-label">Password</label>
+    <input class="login-input" type="password" id="loginPass" placeholder="Enter your password"/>
+    <button class="login-btn" id="loginBtn">Sign In →</button>
+    <div class="login-hint">
+      Email: <strong style="color:#888">contact@nexaworks.co.in</strong><br>
+      or Phone: <strong style="color:#888">+91 7890773702</strong><br>
+      Password: <strong style="color:#888">admin123</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+  <div class="admin-nav">
+    <div class="admin-logo">NexaWorks <span>Admin</span></div>
+    <div style="display:flex;align-items:center;gap:1rem">
+      <div class="admin-user-pill"><div class="admin-user-dot"></div><span>contact@nexaworks.co.in &nbsp;|&nbsp; +91 7890773702</span></div>
+      <button class="admin-close" id="logoutBtn">&#x23FB; Logout</button>
+    </div>
+  </div>
+  <div class="admin-body">
+    <nav class="admin-sidebar">
+      <div class="admin-sidebar-title">Main</div>
+      <a class="admin-nav-item active" data-page="dashboard"><span>📊 </span>Dashboard</a>
+      <a class="admin-nav-item" data-page="applications"><span>📋 </span>Applications</a>
+      <a class="admin-nav-item" data-page="jobs"><span>💼 </span>Manage Jobs</a>
+      <div class="admin-sidebar-title" style="margin-top:1rem">Company</div>
+      <a class="admin-nav-item" data-page="address"><span>📍 </span>Office Address</a>
+      <a class="admin-nav-item" data-page="settings"><span>⚙️ </span>Settings</a>
+    </nav>
+    <main class="admin-main">
+
+      <!-- DASHBOARD -->
+      <div class="admin-page active" id="page-dashboard">
+        <h2 class="admin-page-title">Dashboard</h2>
+        <p class="admin-page-sub">Overview of recruitment activity</p>
+        <div class="admin-stats">
+          <div class="admin-stat"><div class="admin-stat-num" id="statTotal">0</div><div class="admin-stat-label">Total Applications</div><div class="admin-stat-trend">↑ 12% this week</div></div>
+          <div class="admin-stat"><div class="admin-stat-num" id="statNew">0</div><div class="admin-stat-label">New (Unreviewed)</div></div>
+          <div class="admin-stat"><div class="admin-stat-num" id="statJobs">9</div><div class="admin-stat-label">Active Job Postings</div></div>
+          <div class="admin-stat"><div class="admin-stat-num" id="statHired">0</div><div class="admin-stat-label">Hired This Month</div></div>
+        </div>
+        <div class="admin-card">
+          <h3>Recent Applications</h3>
+          <table class="admin-table">
+            <thead><tr><th>Applicant</th><th>Role</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody id="dashRecentApps"><tr><td colspan="4" style="color:#444;text-align:center;padding:2rem">No applications yet.</td></tr></tbody>
+          </table>
+        </div>
+        <div class="admin-card">
+          <h3>📍 Office &amp; Contact on Record</h3>
+          <div class="admin-addr-display">
+            <strong>NexaWorks Headquarters</strong>
+            2nd Floor, MVR'S Vinayagar Trade Center,<br>
+            VIP Rd CBM Compound, Asilmetta<br>
+            Siripuram, Visakhapatnam, Andhra Pradesh 530003
+            <div style="margin-top:.8rem;padding-top:.8rem;border-top:1px solid #2a2620">
+              📞 &nbsp;+91 7890773702 &nbsp;&nbsp; ✉️ &nbsp;contact@nexaworks.co.in
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- APPLICATIONS -->
+      <div class="admin-page" id="page-applications">
+        <h2 class="admin-page-title">Applications</h2>
+        <p class="admin-page-sub">All submitted job applications</p>
+        <div class="notif" id="statusNotif">Status updated successfully.</div>
+        <div class="admin-card">
+          <h3>All Applications</h3>
+          <table class="admin-table">
+            <thead><tr><th>#</th><th>Name</th><th>Role</th><th>Email</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="allAppsTable"><tr><td colspan="7" style="color:#444;text-align:center;padding:2rem">No applications yet.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MANAGE JOBS -->
+      <div class="admin-page" id="page-jobs">
+        <h2 class="admin-page-title">Manage Jobs</h2>
+        <p class="admin-page-sub">Add, edit or close job postings</p>
+        <div class="admin-card">
+          <h3>Post a New Job</h3>
+          <div class="admin-form">
+            <div class="form-row">
+              <div><label>Job Title</label><input type="text" id="newJobTitle" placeholder="e.g. Senior Developer"/></div>
+              <div><label>Department</label>
+                <select id="newJobDept">
+                  <option>Chat Process</option>
+                  <option>Sales &amp; Marketing</option>
+                  <option>Development &amp; IT</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div><label>Location</label><input type="text" id="newJobLoc" value="Visakhapatnam, AP"/></div>
+              <div><label>Type</label>
+                <select id="newJobType"><option>Full-Time</option><option>Part-Time</option><option>Contract</option><option>Internship</option></select>
+              </div>
+            </div>
+            <label>Job Description</label>
+            <textarea id="newJobDesc" placeholder="Describe the role…"></textarea>
+            <button class="btn-gold" id="postJobBtn">Post Job Listing</button>
+            <div class="notif" id="postJobNotif">Job posted successfully!</div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3>Current Listings</h3>
+          <table class="admin-table">
+            <thead><tr><th>Title</th><th>Dept</th><th>Location</th><th>Type</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody id="adminJobsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ADDRESS -->
+      <div class="admin-page" id="page-address">
+        <h2 class="admin-page-title">Office Address</h2>
+        <p class="admin-page-sub">Manage your registered office address</p>
+        <div class="admin-card">
+          <h3>Current Office Address</h3>
+          <div class="admin-addr-display">
+            <strong>NexaWorks Headquarters</strong>
+            2nd Floor, MVR'S Vinayagar Trade Center,<br>
+            VIP Rd CBM Compound, Asilmetta<br>
+            Siripuram, Visakhapatnam, Andhra Pradesh 530003
+          </div>
+          <div style="margin-top:1.5rem">
+            <div class="admin-form">
+              <label>Floor / Building</label>
+              <input type="text" id="addrFloor" value="2nd Floor, MVR'S Vinayagar Trade Center"/>
+              <div class="form-row">
+                <div><label>Street</label><input type="text" id="addrStreet" value="VIP Rd CBM Compound, Asilmetta"/></div>
+                <div><label>Area</label><input type="text" id="addrArea" value="Siripuram"/></div>
+              </div>
+              <div class="form-row">
+                <div><label>City</label><input type="text" id="addrCity" value="Visakhapatnam"/></div>
+                <div><label>State</label><input type="text" id="addrState" value="Andhra Pradesh"/></div>
+              </div>
+              <label>PIN Code</label>
+              <input type="text" id="addrPin" value="530003"/>
+              <button class="btn-gold" id="saveAddrBtn">Save Address</button>
+              <div class="notif" id="addrNotif">Address updated successfully!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="admin-page" id="page-settings">
+        <h2 class="admin-page-title">Settings</h2>
+        <p class="admin-page-sub">Manage site and account settings</p>
+        <div class="admin-card">
+          <h3>Company Details</h3>
+          <div class="admin-form">
+            <label>Company Name</label><input type="text" value="NexaWorks"/>
+            <label>Email</label><input type="email" value="contact@nexaworks.co.in"/>
+            <label>Phone</label><input type="tel" value="+91 7890773702"/>
+            <button class="btn-gold" id="saveSettingsBtn">Save Settings</button>
+            <div class="notif" id="settingsNotif">Settings saved!</div>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3>Admin Access</h3>
+          <div class="admin-form">
+            <label>New Password</label><input type="password" id="newPass" placeholder="New password"/>
+            <label>Confirm Password</label><input type="password" id="confirmPass" placeholder="Confirm password"/>
+            <button class="btn-gold" id="changePassBtn">Update Password</button>
+            <div class="notif" id="passNotif">Password updated!</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const ADMIN_EMAIL = 'contact@nexaworks.co.in';
+const ADMIN_PHONE = '+91 7890773702';
+const ADMIN_PHONE2 = '7890773702';
+const ADMIN_PASS  = 'admin123';
+let adminLoggedIn = false;
+let applications  = [];
+
+const jobsData = [
+  { id:1,  title:'Customer Service Consultant', dept:'Chat Process',       loc:'Visakhapatnam, AP', type:'Full-Time',  desc:'Resolve customer chats via app, handle order status, cancellations, delivery issues and provide inbound chat support with outbound calls to PDPs and stores.', status:'active', detailed:true },
+  { id:2,  title:'Chat Process Associate',       dept:'Chat Process',       loc:'Visakhapatnam, AP', type:'Full-Time',  desc:'Manage real-time customer conversations across multiple channels. Meet response time SLAs and maintain high customer satisfaction scores.', status:'active' },
+  { id:3,  title:'Senior Chat Support Lead',     dept:'Chat Process',       loc:'Visakhapatnam, AP', type:'Full-Time',  desc:'Lead a team of chat agents, monitor quality, handle escalations, and drive process improvements to enhance customer experience.', status:'active' },
+  { id:4,  title:'Sales Executive',              dept:'Sales & Marketing',  loc:'Visakhapatnam, AP', type:'Full-Time',  desc:'Execute sales strategy, manage dealer networks, drive channel partner activation and build a high-performance sales team across assigned territories.', status:'active', salesJd:true },
+  { id:5,  title:'Digital Marketing Specialist', dept:'Sales & Marketing',  loc:'Visakhapatnam, AP', type:'Full-Time',  desc:'Plan and execute campaigns across SEO, SEM, social media, and email. Analyze performance metrics and optimize for maximum ROI.', status:'active' },
+  { id:6,  title:'Business Development Manager', dept:'Sales & Marketing',  loc:'Visakhapatnam, AP', type:'Full-Time',  desc:'Identify new market opportunities, forge strategic partnerships, and grow our client base across industry verticals.', status:'active' },
+  { id:7,  title:'IT Developer',                  dept:'Development & IT',   loc:'Visakhapatnam, AP', type:'Full-Time',  desc:'Enforce development standards, collaborate with architects and business analysts to implement solutions, translate business requirements into functional/technical specs.', status:'active', itJd:true },
+  { id:8,  title:'DevOps & Cloud Engineer',       dept:'Development & IT',   loc:'Visakhapatnam, AP', type:'Full-Time',  desc:'Manage CI/CD pipelines, cloud infrastructure on AWS/GCP, and ensure high availability and security of production systems.', status:'active' },
+  { id:9,  title:'IT Support Intern',             dept:'Development & IT',   loc:'Visakhapatnam, AP', type:'Internship', desc:'Assist the IT team with system maintenance, troubleshooting, and internal tool support. Great entry point into a tech career.', status:'active' },
+];
+
+// ── JOBS ──
+function renderJobs(filter) {
+  var grid = document.getElementById('jobsGrid');
+  var list = filter === 'all' ? jobsData : jobsData.filter(function(j){ return j.dept === filter; });
+  var html = '';
+  list.filter(function(j){ return j.status === 'active'; }).forEach(function(j) {
+    var btn;
+    if (j.detailed) {
+      btn = '<button class="jd-btn" onclick="openJd()">View Full JD →</button>';
+    } else if (j.salesJd) {
+      btn = '<button class="jd-btn" style="background:var(--rust);color:#fff;" onclick="openSalesJd()">View Full JD →</button>';
+    } else if (j.itJd) {
+      btn = '<button class="jd-btn" style="background:#1565c0;color:#fff;" onclick="openItJd()">View Full JD →</button>';
+    } else {
+      btn = '<button class="apply-btn" onclick="openApply(\'' + esc(j.title) + '\',\'' + esc(j.dept) + '\',\'' + esc(j.loc) + '\',\'' + esc(j.type) + '\')">Apply Now →</button>';
+    }
+    html += '<div class="job-card">'
+          + '<div class="job-dept">' + j.dept + '</div>'
+          + '<div class="job-title">' + j.title + '</div>'
+          + '<div class="job-meta">'
+          + '<span class="job-tag type">⏱ Full-Time</span>'
+          + '<span class="job-tag wfh">🏠 Work From Home</span>'
+          + '</div>'
+          + '<div class="job-desc">' + j.desc + '</div>'
+          + btn
+          + '</div>';
+  });
+  grid.innerHTML = html || '<p style="color:var(--muted);padding:2rem 0">No roles in this category right now.</p>';
+}
+
+function esc(s) { return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+function filterJobs(f, btn) {
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderJobs(f);
+}
+
+// ── JD MODAL ──
+function openJd() {
+  document.getElementById('jdOverlay').classList.add('open');
+}
+function closeJd() {
+  document.getElementById('jdOverlay').classList.remove('open');
+}
+document.getElementById('jdApplyBtn').onclick = function() {
+  closeJd();
+  openApply('Customer Service Consultant', 'Chat Process', 'Visakhapatnam, AP', 'Full-Time');
+};
+function openSalesJd() {
+  document.getElementById('salesJdOverlay').classList.add('open');
+}
+function closeSalesJd() {
+  document.getElementById('salesJdOverlay').classList.remove('open');
+}
+document.getElementById('salesJdApplyBtn').onclick = function() {
+  closeSalesJd();
+  openApply('Sales Executive', 'Sales & Marketing', 'Visakhapatnam, AP', 'Full-Time');
+};
+function openItJd() {
+  document.getElementById('itJdOverlay').classList.add('open');
+}
+function closeItJd() {
+  document.getElementById('itJdOverlay').classList.remove('open');
+}
+document.getElementById('itJdApplyBtn').onclick = function() {
+  closeItJd();
+  openApply('IT Developer', 'Development & IT', 'Visakhapatnam, AP', 'Full-Time');
+};
+
+// ── APPLY MODAL ──
+function openApply(title, dept, loc, type) {
+  document.getElementById('modalDept').textContent = dept;
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalMeta').innerHTML = '';
+  document.getElementById('applyForm').style.display = 'block';
+  document.getElementById('applySuccess').style.display = 'none';
+  document.getElementById('applyModal').classList.add('open');
+  window._applyTitle = title; window._applyDept = dept;
+}
+function closeModal() { document.getElementById('applyModal').classList.remove('open'); }
+
+function submitApplication(e) {
+  e.preventDefault();
+  var f = e.target;
+  applications.push({
+    id: Date.now(),
+    name: f[0].value + ' ' + f[1].value,
+    email: f[2].value,
+    role: window._applyTitle || '',
+    dept: window._applyDept || '',
+    date: new Date().toLocaleDateString('en-IN'),
+    status: 'new'
+  });
+  document.getElementById('applyForm').style.display = 'none';
+  document.getElementById('applySuccess').style.display = 'block';
+  refreshAdminTables();
+}
+
+// ── CONTACT ──
+function contactSent(btn) { btn.textContent = '✓ Message Sent!'; btn.disabled = true; btn.style.background = '#4caf90'; }
+
+// ── ADMIN LOGIN ──
+function openAdmin() {
+  if (adminLoggedIn) {
+    document.getElementById('adminPanel').classList.add('open');
+  } else {
+    document.getElementById('adminLogin').classList.add('open');
+    setTimeout(function(){ document.getElementById('loginEmail').focus(); }, 80);
+  }
+}
+
+document.getElementById('loginBtn').onclick = function() {
+  var email = document.getElementById('loginEmail').value.trim();
+  var pass  = document.getElementById('loginPass').value;
+  var err   = document.getElementById('loginError');
+  if ((email === ADMIN_EMAIL || email === ADMIN_PHONE || email === ADMIN_PHONE2) && pass === ADMIN_PASS) {
+    adminLoggedIn = true;
+    err.classList.remove('show');
+    document.getElementById('adminLogin').classList.remove('open');
+    document.getElementById('adminPanel').classList.add('open');
+    refreshAdminTables();
+    renderAdminJobs();
+  } else {
+    err.classList.add('show');
+    document.getElementById('loginPass').value = '';
+  }
+};
+
+document.getElementById('loginPass').onkeydown = function(e){ if(e.key==='Enter') document.getElementById('loginBtn').click(); };
+document.getElementById('loginEmail').onkeydown = function(e){ if(e.key==='Enter') document.getElementById('loginPass').focus(); };
+
+document.getElementById('logoutBtn').onclick = function() {
+  adminLoggedIn = false;
+  document.getElementById('adminPanel').classList.remove('open');
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').classList.remove('show');
+};
+
+// ── ADMIN SIDEBAR ──
+document.querySelectorAll('.admin-nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    var page = this.getAttribute('data-page');
+    document.querySelectorAll('.admin-page').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.admin-nav-item').forEach(function(n){ n.classList.remove('active'); });
+    document.getElementById('page-' + page).classList.add('active');
+    this.classList.add('active');
+    if (page === 'dashboard' || page === 'applications') refreshAdminTables();
+    if (page === 'jobs') renderAdminJobs();
+  });
+});
+
+// ── ADMIN DATA ──
+function refreshAdminTables() {
+  var total = applications.length;
+  var newC  = applications.filter(function(a){ return a.status === 'new'; }).length;
+  var hired = applications.filter(function(a){ return a.status === 'hired'; }).length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statNew').textContent   = newC;
+  document.getElementById('statHired').textContent = hired;
+
+  var recent = applications.slice(-5).reverse();
+  var rHtml = '';
+  recent.forEach(function(a){
+    rHtml += '<tr><td>' + a.name + '</td><td>' + a.role + '</td><td>' + a.date + '</td><td><span class="badge badge-' + a.status + '">' + a.status + '</span></td></tr>';
+  });
+  document.getElementById('dashRecentApps').innerHTML = rHtml || '<tr><td colspan="4" style="color:#444;text-align:center;padding:2rem">No applications yet.</td></tr>';
+
+  var allHtml = '';
+  applications.forEach(function(a, i){
+    allHtml += '<tr><td>' + (i+1) + '</td><td>' + a.name + '</td><td>' + a.role + '</td><td>' + a.email + '</td><td>' + a.date + '</td>'
+      + '<td><span class="badge badge-' + a.status + '" id="b-' + a.id + '">' + a.status + '</span></td>'
+      + '<td><select onchange="changeStatus(' + a.id + ',this.value)" style="background:#0f0e0d;border:1px solid #333;color:#bbb;padding:.3rem .5rem;font-size:.78rem">'
+      + '<option value="new"'      + (a.status==='new'?      ' selected':'') + '>New</option>'
+      + '<option value="review"'   + (a.status==='review'?   ' selected':'') + '>In Review</option>'
+      + '<option value="hired"'    + (a.status==='hired'?    ' selected':'') + '>Hired</option>'
+      + '<option value="rejected"' + (a.status==='rejected'? ' selected':'') + '>Rejected</option>'
+      + '</select></td></tr>';
+  });
+  document.getElementById('allAppsTable').innerHTML = allHtml || '<tr><td colspan="7" style="color:#444;text-align:center;padding:2rem">No applications yet.</td></tr>';
+}
+
+function changeStatus(id, status) {
+  var app = applications.find(function(a){ return a.id === id; });
+  if (app) { app.status = status; refreshAdminTables(); showNotif('statusNotif'); }
+}
+
+function renderAdminJobs() {
+  var html = '';
+  jobsData.forEach(function(j){
+    html += '<tr><td>' + j.title + '</td><td>' + j.dept + '</td><td>' + j.loc + '</td><td>' + j.type + '</td>'
+          + '<td><span class="badge badge-' + (j.status==='active'?'active':'closed') + '">' + j.status + '</span></td>'
+          + '<td><button class="btn-sm" onclick="toggleJob(' + j.id + ')">' + (j.status==='active'?'Close':'Reopen') + '</button></td></tr>';
+  });
+  document.getElementById('adminJobsBody').innerHTML = html;
+}
+
+function toggleJob(id) {
+  var j = jobsData.find(function(x){ return x.id === id; });
+  if (j) { j.status = j.status === 'active' ? 'closed' : 'active'; renderAdminJobs(); renderJobs('all'); }
+}
+
+document.getElementById('postJobBtn').onclick = function() {
+  var title = document.getElementById('newJobTitle').value.trim();
+  var desc  = document.getElementById('newJobDesc').value.trim();
+  if (!title || !desc) { alert('Please fill in the job title and description.'); return; }
+  jobsData.push({
+    id: Date.now(),
+    title: title,
+    dept: document.getElementById('newJobDept').value,
+    loc:  document.getElementById('newJobLoc').value,
+    type: document.getElementById('newJobType').value,
+    desc: desc,
+    status: 'active'
+  });
+  document.getElementById('newJobTitle').value = '';
+  document.getElementById('newJobDesc').value  = '';
+  renderAdminJobs(); renderJobs('all');
+  showNotif('postJobNotif');
+};
+
+document.getElementById('saveAddrBtn').onclick   = function(){ showNotif('addrNotif'); };
+document.getElementById('saveSettingsBtn').onclick = function(){ showNotif('settingsNotif'); };
+document.getElementById('changePassBtn').onclick  = function(){
+  var np = document.getElementById('newPass').value;
+  var cp = document.getElementById('confirmPass').value;
+  if (!np) { alert('Enter a new password.'); return; }
+  if (np !== cp) { alert('Passwords do not match.'); return; }
+  showNotif('passNotif');
+  document.getElementById('newPass').value = '';
+  document.getElementById('confirmPass').value = '';
+};
+
+function showNotif(id) {
+  var el = document.getElementById(id);
+  el.classList.add('show');
+  setTimeout(function(){ el.classList.remove('show'); }, 3000);
+}
+
+// ── INIT ──
+renderJobs('all');
+renderAdminJobs();
+</script>
+</body>
+</html>
